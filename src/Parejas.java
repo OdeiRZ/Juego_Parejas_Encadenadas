@@ -161,4 +161,30 @@ public class Parejas extends JFrame implements ActionListener {
          Puntos.setText(nom + ": " + record + " ");
     }
     
+    protected void Puntuacion() {						//Guarda la nueva puntuación en caso de ser Record
+        String record = "", nom = "Anónimo";
+        try {
+            try (FileReader pts = new FileReader("src/" + ruta + "record.txt")){//Leemos Record
+                BufferedReader leer = new BufferedReader(pts);
+                record = leer.readLine();
+                nom = leer.readLine();
+            }
+        } catch(IOException ioe) { }
+        
+        try {                                                                   //Comprobador de numero de intentos
+            Integer.parseInt(record);
+        } catch (NumberFormatException NFE) {
+            record = "100";                                                     //si hay un error en el archivo inicia otra vez el record a 100 
+        }
+        if (intentos < Integer.parseInt(record)) {                              //Tienes Menor número de intentos que el anterior?
+            try {	
+                try (FileWriter pts = new FileWriter("src/"+ruta+"record.txt")){
+                    nom = JOptionPane.showInputDialog("Nuevo Record, Introduce tu Nombre:");
+                    pts.write(Integer.toString(intentos) + "\n");
+                    pts.write(nom + "\n");
+                }
+            } catch (IOException ioe) { }
+        }
+    }
+    
 }
