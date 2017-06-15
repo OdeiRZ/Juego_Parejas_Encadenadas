@@ -4,7 +4,9 @@ import java.awt.event.*;
 import java.io.*;
         
 public class Parejas extends JFrame implements ActionListener {
-    
+    /**
+     * Variable usada para activar o no el debug con la solución del juego.
+     */
     private final boolean debug = false;
     
     /**
@@ -71,7 +73,7 @@ public class Parejas extends JFrame implements ActionListener {
      * Variable de tipo cadena usada para almacenar la Ruta del directorio 
      * donde estan almacenados los ficheros que usaremos durante el Programa.
      */
-    private static final String ruta = "recursos/";    
+    private final String ruta = "recursos/";    
     
     /**
      * Constructor principal de la clase Parejas.
@@ -80,17 +82,17 @@ public class Parejas extends JFrame implements ActionListener {
      */
     protected Parejas() {
         imagenes = new ImageIcon[20];
-        carta = new ImageIcon(Parejas.class.getResource(ruta + "carta.png"));   //Ficha por defecto
         intentosLbl = new JLabel(" Número de intentos: 0 ");
+        carta = new ImageIcon(Parejas.class.getResource(ruta + "carta.png"));   //Ficha por defecto
         puntos = new JLabel("", JLabel.RIGHT);
         fichas = new int[columnas][filas];
         intentos = 0;
         contadorClick = 0;
-        for (int i = 0; i < 10; i++)						//Cargamos las imágenes utilizadas en el juego
+        for (int i = 0; i < 10; i++) {						//Cargamos las imágenes utilizadas en el juego
             imagenes[i] = new ImageIcon(Parejas.class.getResource(
                     ruta + Integer.toString(i) + ".png"));
+        }
         JPanel central = new JPanel(new GridLayout(columnas, filas));
-
         botones = new JButton[columnas][filas];                                 //Creamos matriz de botones
         for(int i = 0; i < columnas; i++) {
             for(int j = 0; j < filas; j++) {					//Añadimos Botones al panel principal
@@ -123,6 +125,7 @@ public class Parejas extends JFrame implements ActionListener {
         setTitle("Parejas Encadenadas");					//Propiedades de la ventana
         setResizable(false);
         setSize(520,600);
+        setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().createImage(
                 Parejas.class.getResource(ruta + "logo.png")));                 //Le ponemos una imágen de icono a la ventana
         setVisible(true);
@@ -205,7 +208,7 @@ public class Parejas extends JFrame implements ActionListener {
         intentosLbl.setText(" Número de intentos: " + intentos + "	");     //Cargamos número de intentos actuales
         
         if (contadorFichas == 10) {                                             //Si hemos acabao el juego
-            JOptionPane.showMessageDialog(this, "El nº de Intentos es: " + 
+            JOptionPane.showMessageDialog(this, "nümero de Intentos: " + 
                 intentos,"¡Has ganado!",JOptionPane.INFORMATION_MESSAGE, carta);
             Puntuacion();
             VerPuntuacion();
@@ -257,7 +260,11 @@ public class Parejas extends JFrame implements ActionListener {
                     String nom = JOptionPane.showInputDialog(
                             "Nuevo Record, Introduce tu Nombre:");              //Obtenemos el nombre del jugador
                     pts.write(Integer.toString(intentos) + "\n");               //y lo almacenamos en el fichero
-                    pts.write(nom + "\n");
+                    if (nom.length() > 0) {
+                        pts.write(nom + "\n");
+                    } else {
+                        pts.write("Anónimo\n");
+                    }
                 }
             } catch (IOException ioe) { }
         }
