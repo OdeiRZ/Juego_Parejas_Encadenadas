@@ -24,5 +24,49 @@ public class Parejas extends JFrame implements ActionListener {
     private final JButton boton[][];
     
     private static final String ruta = "recursos/";    
-   
+    
+    protected Parejas() {
+        imagenes = new ImageIcon[20];
+        abajo = new ImageIcon(Parejas.class.getResource(ruta + "carta.png"));   //ficha por defecto
+        Lintentos = new JLabel(" Número de intentos: 0 ");
+        Puntos = new JLabel("", JLabel.RIGHT);
+        for (int i = 0; i < 10; i++)						//carga de imágenes de la misma carpeta nombradas como x.JPG
+            imagenes[i] = new ImageIcon(Parejas.class.getResource(
+                    ruta + Integer.toString(i) + ".png"));
+        JPanel central = new JPanel(new GridLayout(columnas, filas));
+
+        boton = new JButton[columnas][filas];                                   //matriz de botones
+        for(int i = 0; i < columnas; i++) {
+            for(int j = 0; j < filas; j++) {					//Añadimos Botones al panel principal de botones
+               boton[i][j] = new JButton();
+               boton[i][j].addActionListener(this);                             //añade el actionlistener al boton
+               boton[i][j].setBackground(Color.WHITE);
+               central.add(boton[i][j]);
+            }
+        }
+        add(central, "Center");
+        JPanel Pun = new JPanel();		 				//Panel que muestra la puntuación máxima
+        Pun.setLayout(new GridLayout(1, 2));
+        Pun.add(Lintentos);
+        Pun.add(Puntos);
+        add(Pun, "South");
+        ImagenesAleatorias();							//Método que coloca las imágenes aleatoriamente en la matriz
+        VerPuntuacion();
+
+        addWindowListener(new WindowAdapter() {                                  //Método para cerrar la ventana
+            @Override
+            
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+        
+        setTitle("Parejas Encadenadas");					// Propiedades de la ventana
+        setResizable(false);
+        setSize(520,600);
+        setIconImage(Toolkit.getDefaultToolkit().createImage(
+                Parejas.class.getResource(ruta + "logo.png")));                 // Le ponemos una imágen de icono a la ventana
+        setVisible(true);
+    }
+    
 }
