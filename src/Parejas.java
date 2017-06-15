@@ -187,4 +187,7 @@ public class Parejas extends JFrame implements ActionListener {
         }
     }
     
+    public static void main(String[] args) { 
+        Parejas parejas = new Parejas();
+    }
 }
