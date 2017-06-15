@@ -149,4 +149,16 @@ public class Parejas extends JFrame implements ActionListener {
         } 
     }
     
+    protected void VerPuntuacion() {							//Muestra puntuación Record
+        String record = "", nom = "";
+        try {
+            try (FileReader pts = new FileReader("src/" + ruta + "record.txt")){
+                BufferedReader leer = new BufferedReader(pts);
+                record = leer.readLine();
+                nom = leer.readLine();
+            }
+         } catch (IOException ioe) { }
+         Puntos.setText(nom + ": " + record + " ");
+    }
+    
 }
