@@ -101,4 +101,52 @@ public class Parejas extends JFrame implements ActionListener {
         }
     }
     
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        for (int i = 0; i < columnas; i++) {
+            for (int j = 0; j < filas; j++) {	
+                if (ae.getSource() == boton[i][j]) {
+                    if (boton[i][j].getIcon().equals(abajo)) {
+                        comprobar++;                                            //Cuando la pulsación no es la nº 3 muestra la carta de esa posicion
+                        if (comprobar != 3) 
+                            boton[i][j].setIcon(imagenes[ficha[i][j]]);
+                        if (comprobar == 1) {                                   //Guarda las propiedades de la 1º carta 
+                            pos1 = ficha[i][j];                                 //guarda la ficha que se encuentra en esa posición
+                            i1 = i;                                             //coordenada i de la ficha
+                            j1 = j;                                             //cordenada j de la ficha
+                            intentos++;                                         //contador del número de intentos para establecer record
+                        }
+                        if (comprobar == 2) {                                   //Guarda las propiedades de la 2º carta
+                            if (pos1 == ficha[i][j]) {                          //Las cartas coinciden
+                                quedan++;                                       //Contador de fichas que han salido
+                                comprobar = 0;                                  //Poner a 0 la pulsación
+                                intentos++;                                     //contador de el numero de intentos
+                            } else {                                            //Has fallado. Las fichas son diferentes 
+                                i2 = i;
+                                j2 = j;
+                            }
+                        }
+                        if (comprobar == 3) {                                   //El 3º Click, al ser distintas vuelve a ocultar las fichas
+                            boton[i1][j1].setIcon(abajo);
+                            boton[i2][j2].setIcon(abajo);	
+                            comprobar=0;	      		    	 	
+                        }
+                    }
+                }
+            }
+        }
+        Lintentos.setText(" Número de intentos: " + intentos + "	");     //Número de intentos que llevas
+        
+        if (quedan == 10) {
+            JOptionPane.showMessageDialog(this, "El nº de Intentos es: " + 
+                intentos,"¡Has ganado!",JOptionPane.INFORMATION_MESSAGE, abajo);	 
+            Puntuacion();
+            VerPuntuacion();
+            quedan = 0;
+            intentos = 0;
+            ImagenesAleatorias();
+            Lintentos.setText(" Número de intentos: " + intentos );
+        } 
+    }
+    
 }
