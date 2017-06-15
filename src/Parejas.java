@@ -69,4 +69,36 @@ public class Parejas extends JFrame implements ActionListener {
         setVisible(true);
     }
     
+    protected void ImagenesAleatorias() {
+        int x, y = 0, numero = -1;
+        double x1, y1;
+
+        for (int i = 0; i < columnas; i++)
+            for (int j = 0; j < filas; j++)
+                ficha[i][j] = -1;                                               //Ponemos matriz de fichas a -1 (no tiene ficha)
+        for (int i = 0; i < columnas; i++) {
+            for (int j = 0; j < filas; j++) {                                       //Generamos posición aleatoria dentro de la matriz
+                do {
+                    x1 = Math.random()*columnas;
+                    y1 = Math.random()*filas;
+                    x = (int)x1;
+                    y = (int)y1;
+                } while (ficha[x][y] != -1);
+                numero++;
+                if (numero == 10) 
+                    numero = 0;
+                ficha[x][y] = numero;
+                boton[i][j].setIcon(abajo);
+            }	
+        }
+        
+        if (debug) {
+            for (int i = 0; i < columnas; i++) {						//Solucion: visualizacion de matriz en consola de java  
+                for (int j = 0; j < filas; j++)
+                    System.out.print(ficha[i][j] + "     ");
+                System.out.println(" ");
+            } 
+        }
+    }
+    
 }
