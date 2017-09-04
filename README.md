@@ -6,9 +6,9 @@ personajes de anime. Permite al usuario interactuar con el juego mediante una in
 que muestra diferentes cartas con distintos personajes, a su vez, se muestra un contador de 
 intentos y el record actual del juego.
 
-Desde el programa podremos seleccionar múltiples imágenes que se iran desbloqueando conforme
+Desde el juego podremos seleccionar múltiples imágenes que se iran desbloqueando conforme
 vayamos adivinando la posición de los personajes, si el jugador gana la partida y bate el record 
-actual, podrá introducir sus datos y se guardarán junto a su puntuación.
+actual, podrá introducir sus datos y se guardarán junto a su tiempo.
 
 El proyecto hace uso de una interfaz gráfica y diferentes elementos multimedia para dotar
 a la aplicación de un mayor atractivo visual.
